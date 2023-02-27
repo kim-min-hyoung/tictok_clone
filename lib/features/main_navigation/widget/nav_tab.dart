@@ -11,12 +11,14 @@ class NavTab extends StatelessWidget {
     required this.onTap,
     required this.isSeleted,
     required this.seletedIcon,
+    required this.selectedIndex,
   });
 
   final bool isSeleted;
   final String text;
   final IconData icon;
   final IconData seletedIcon;
+  final int selectedIndex;
 
   final Function onTap;
 
@@ -26,7 +28,7 @@ class NavTab extends StatelessWidget {
       child: GestureDetector(
         onTap: () => onTap(),
         child: Container(
-          color: Colors.black,
+          color: selectedIndex == 0 ? Colors.black : Colors.white,
           child: AnimatedOpacity(
             duration: const Duration(microseconds: 500),
             opacity: isSeleted ? 1 : 0.6,
@@ -35,13 +37,13 @@ class NavTab extends StatelessWidget {
               children: [
                 FaIcon(
                   isSeleted ? seletedIcon : icon,
-                  color: Colors.white,
+                  color: selectedIndex == 0 ? Colors.white : Colors.black,
                 ),
                 Gaps.v5,
                 Text(
                   text,
-                  style: const TextStyle(
-                    color: Colors.white,
+                  style: TextStyle(
+                    color: selectedIndex == 0 ? Colors.white : Colors.black,
                   ),
                 ),
               ],

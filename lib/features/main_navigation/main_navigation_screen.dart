@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
-import 'package:tiktok_clone/features/main_navigation/stf_screen.dart';
+import 'package:tiktok_clone/features/discover/discover_screen.dart';
+import 'package:tiktok_clone/features/inbox/inbox_screen.dart';
 import 'package:tiktok_clone/features/main_navigation/widget/nav_tab.dart';
 import 'package:tiktok_clone/features/main_navigation/widget/post_video_button.dart';
+import 'package:tiktok_clone/features/users/user_profile_screen.dart';
 import 'package:tiktok_clone/features/videos/video_timeline_screen.dart';
 
 import '../../constants/gaps.dart';
@@ -16,12 +18,12 @@ class MainNavigationScreen extends StatefulWidget {
 }
 
 class _MainNavigationScreenState extends State<MainNavigationScreen> {
-  int _seletedIndex = 0;
+  int _selectedIndx = 4;
   // final bool _isSeleted = true;
 
   void _onTap(int index) {
     setState(() {
-      _seletedIndex = index;
+      _selectedIndx = index;
     });
   }
 
@@ -42,26 +44,27 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      backgroundColor: _selectedIndx == 0 ? Colors.black : Colors.white,
       body: Stack(children: [
         Offstage(
-          offstage: _seletedIndex != 0,
+          offstage: _selectedIndx != 0,
           child: const VideoTimelineScreen(),
         ),
         Offstage(
-          offstage: _seletedIndex != 1,
-          child: const StfScreen(),
+          offstage: _selectedIndx != 1,
+          child: const DiscoverScreen(),
         ),
         Offstage(
-          offstage: _seletedIndex != 3,
-          child: const StfScreen(),
+          offstage: _selectedIndx != 3,
+          child: const InboxScreen(),
         ),
         Offstage(
-          offstage: _seletedIndex != 4,
-          child: const StfScreen(),
+          offstage: _selectedIndx != 4,
+          child: const UserProfileScreen(),
         ),
       ]),
       bottomNavigationBar: BottomAppBar(
-        color: Colors.black,
+        color: _selectedIndx == 0 ? Colors.black : Colors.white,
         child: Padding(
           padding: const EdgeInsets.all(
             Sizes.size12,
@@ -73,34 +76,40 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                 text: 'Home',
                 icon: FontAwesomeIcons.house,
                 seletedIcon: FontAwesomeIcons.house,
-                isSeleted: _seletedIndex == 0,
+                isSeleted: _selectedIndx == 0,
+                selectedIndex: _selectedIndx,
                 onTap: () => _onTap(0),
               ),
               NavTab(
                 text: 'Discover',
                 icon: FontAwesomeIcons.compass,
                 seletedIcon: FontAwesomeIcons.solidCompass,
-                isSeleted: _seletedIndex == 1,
+                isSeleted: _selectedIndx == 1,
+                selectedIndex: _selectedIndx,
                 onTap: () => _onTap(1),
               ),
               Gaps.h24,
               GestureDetector(
                 onTap: _onPostVideoButtonTap,
-                child: const PostVideoButton(),
+                child: PostVideoButton(
+                  inverted: _selectedIndx != 0,
+                ),
               ),
               Gaps.h24,
               NavTab(
                 text: 'Inbox',
                 icon: FontAwesomeIcons.message,
                 seletedIcon: FontAwesomeIcons.solidMessage,
-                isSeleted: _seletedIndex == 3,
+                isSeleted: _selectedIndx == 3,
+                selectedIndex: _selectedIndx,
                 onTap: () => _onTap(3),
               ),
               NavTab(
                 text: 'Profile',
                 icon: FontAwesomeIcons.user,
                 seletedIcon: FontAwesomeIcons.solidUser,
-                isSeleted: _seletedIndex == 4,
+                isSeleted: _selectedIndx == 4,
+                selectedIndex: _selectedIndx,
                 onTap: () => _onTap(4),
               ),
             ],
@@ -121,7 +130,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
       //   surfaceTintColor: Colors.grey[350],
       //   shadowColor: Colors.grey[350],
       //   onDestinationSelected: _onTap,
-      //   selectedIndex: _seletedIndex,
+      //   selectedIndex: _selectedIndx,
       //   destinations: [
       //     NavigationDestination(
       //       icon: FaIcon(
@@ -151,7 +160,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
 
       // bottomNavigationBar: BottomNavigationBar(
       //   onTap: _onTap,
-      //   currentIndex: _seletedIndex,
+      //   currentIndex: _selectedIndx,
       //   items: const [
       //     BottomNavigationBarItem(
       //       icon: FaIcon(FontAwesomeIcons.house),
