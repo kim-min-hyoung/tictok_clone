@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../constants/sizes.dart';
+import '../../../utils.dart';
 
 class PostVideoButton extends StatelessWidget {
   const PostVideoButton({
@@ -50,7 +51,11 @@ class PostVideoButton extends StatelessWidget {
             horizontal: Sizes.size12,
           ),
           decoration: BoxDecoration(
-            color: inverted ? Colors.black : Colors.white,
+            color: isDarkMode(context)
+                ? Colors.white
+                : inverted
+                    ? Colors.black
+                    : Colors.white,
             borderRadius: BorderRadius.circular(
               Sizes.size6,
             ),
@@ -58,7 +63,11 @@ class PostVideoButton extends StatelessWidget {
           child: Center(
               child: FaIcon(
             FontAwesomeIcons.plus,
-            color: inverted ? Colors.white : Colors.black,
+            color: isDarkMode(context)
+                ? Colors.black
+                : inverted
+                    ? Colors.white
+                    : Colors.black,
             size: 18,
           )),
         )

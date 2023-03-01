@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/features/inbox/activity_screnn.dart';
 import 'package:tiktok_clone/features/inbox/chats_screen.dart';
+import 'package:tiktok_clone/utils.dart';
 
 import '../../constants/sizes.dart';
 
@@ -53,12 +54,14 @@ class InboxScreen extends StatelessWidget {
             trailing: const FaIcon(
               FontAwesomeIcons.chevronRight,
               size: Sizes.size14,
-              color: Colors.black,
+              // color: Colors.black,
             ),
           ),
           Container(
             height: Sizes.size1,
-            color: Colors.grey.shade200,
+            color: isDarkMode(context)
+                ? Colors.grey.shade700
+                : Colors.grey.shade200,
           ),
           ListTile(
             leading: Container(
@@ -90,7 +93,7 @@ class InboxScreen extends StatelessWidget {
             trailing: const FaIcon(
               FontAwesomeIcons.chevronRight,
               size: Sizes.size14,
-              color: Colors.black,
+              // color: Colors.black,
             ),
           )
         ],

@@ -7,6 +7,7 @@ import 'package:tiktok_clone/features/main_navigation/widget/nav_tab.dart';
 import 'package:tiktok_clone/features/main_navigation/widget/post_video_button.dart';
 import 'package:tiktok_clone/features/users/user_profile_screen.dart';
 import 'package:tiktok_clone/features/videos/video_timeline_screen.dart';
+import 'package:tiktok_clone/utils.dart';
 
 import '../../constants/gaps.dart';
 
@@ -18,7 +19,7 @@ class MainNavigationScreen extends StatefulWidget {
 }
 
 class _MainNavigationScreenState extends State<MainNavigationScreen> {
-  int _selectedIndx = 4;
+  int _selectedIndx = 1;
   // final bool _isSeleted = true;
 
   void _onTap(int index) {
@@ -60,11 +61,18 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
         ),
         Offstage(
           offstage: _selectedIndx != 4,
-          child: const UserProfileScreen(),
+          child: const UserProfileScreen(
+            username: 'alsgud',
+            tab: '',
+          ),
         ),
       ]),
       bottomNavigationBar: BottomAppBar(
-        color: _selectedIndx == 0 ? Colors.black : Colors.white,
+        color: isDarkMode(context)
+            ? Colors.black
+            : _selectedIndx == 0
+                ? Colors.black
+                : Colors.white,
         child: Padding(
           padding: const EdgeInsets.all(
             Sizes.size12,

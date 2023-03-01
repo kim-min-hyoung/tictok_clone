@@ -5,7 +5,11 @@ import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/features/authentication/login_form_screen.dart';
 import 'package:tiktok_clone/features/authentication/widget/aut_button.dart';
 
+import '../../utils.dart';
+
 class LoginScreen extends StatelessWidget {
+  static String routeName = "/login";
+
   const LoginScreen({super.key});
 
   _onTapSignup(BuildContext context) {
@@ -13,12 +17,17 @@ class LoginScreen extends StatelessWidget {
   }
 
   _onTapLoginForm(BuildContext context) {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => const LoginFormScreen()));
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const LoginFormScreen(),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -27,21 +36,22 @@ class LoginScreen extends StatelessWidget {
             // crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Gaps.v80,
-              const Text(
+              Text(
                 'Log in to TikTok',
-                style: TextStyle(
-                  fontSize: Sizes.size24,
-                  fontWeight: FontWeight.w600,
+                style: textTheme.titleLarge!.copyWith(
+                  fontWeight: FontWeight.bold,
                 ),
               ),
               Gaps.v16,
-              const Text(
-                'Manage your account, check notifications, comment on videos, and more',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: Sizes.size16,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.black45,
+              const Opacity(
+                opacity: 0.7,
+                child: Text(
+                  'Manage your account, check notifications, comment on videos, and more',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: Sizes.size16,
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
               ),
               Gaps.v36,
@@ -62,7 +72,7 @@ class LoginScreen extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: BottomAppBar(
-        color: Colors.grey[100],
+        color: isDarkMode(context) ? null : Colors.grey[100],
         child: Padding(
           padding: const EdgeInsets.all(Sizes.size36),
           child: Row(

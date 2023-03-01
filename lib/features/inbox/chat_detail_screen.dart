@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
+import 'package:tiktok_clone/utils.dart';
 
 class ChatDetailScreen extends StatefulWidget {
   const ChatDetailScreen({super.key});
@@ -52,13 +53,13 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
             children: const [
               FaIcon(
                 FontAwesomeIcons.flag,
-                color: Colors.black,
+                // color: Colors.black,
                 size: Sizes.size20,
               ),
               Gaps.h28,
               FaIcon(
                 FontAwesomeIcons.ellipsis,
-                color: Colors.black,
+                // color: Colors.black,
                 size: Sizes.size20,
               )
             ],
@@ -122,7 +123,8 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
               bottom: 0,
               width: MediaQuery.of(context).size.width,
               child: BottomAppBar(
-                color: Colors.white,
+                color:
+                    isDarkMode(context) ? Colors.grey.shade800 : Colors.white,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: Sizes.size16,
@@ -144,7 +146,9 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                             decoration: InputDecoration(
                               hintText: 'add writing...',
                               filled: true,
-                              fillColor: Colors.grey.shade200,
+                              fillColor: isDarkMode(context)
+                                  ? Colors.grey.shade600
+                                  : Colors.grey.shade200,
                               contentPadding: const EdgeInsets.symmetric(
                                 horizontal: Sizes.size12,
                               ),
@@ -164,7 +168,9 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                                         onTap: _stopWriting,
                                         child: FaIcon(
                                           FontAwesomeIcons.paperPlane,
-                                          color: Colors.grey.shade600,
+                                          color: isDarkMode(context)
+                                              ? Colors.white
+                                              : Colors.grey.shade600,
                                         ),
                                       ),
                                   ],
