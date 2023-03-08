@@ -14,7 +14,6 @@ class EmailScreenArgs {
 }
 
 class EmailScreen extends StatefulWidget {
-  static String routeName = "/email";
   final String username;
 
   const EmailScreen({super.key, required this.username});

@@ -1,32 +1,40 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:tiktok_clone/features/videos/view_models/playback_config_vm.dart';
 
-class SettingsScreen extends StatefulWidget {
+class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
 
   @override
-  State<SettingsScreen> createState() => _SettingsScreenState();
-}
-
-class _SettingsScreenState extends State<SettingsScreen> {
-  bool _notifications = false;
-
-  void _onNotificationsChanged(bool? newValue) {
-    if (newValue == null) return;
-    setState(() {
-      _notifications = newValue;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('settings'),
       ),
       body: ListView(
         children: [
+          SwitchListTile.adaptive(
+            value: ref.watch(playbackConfigProvider).muted,
+            onChanged: (value) =>
+                ref.read(playbackConfigProvider.notifier).setMuted(value),
+            title: const Text("Auto Mute"),
+            subtitle: const Text("Videos muted by default."),
+          ),
+          SwitchListTile.adaptive(
+            value: ref.watch(playbackConfigProvider).autoplay,
+            onChanged: (value) =>
+                ref.read(playbackConfigProvider.notifier).setAutoplay(value),
+            title: const Text("Enable notifications"),
+            subtitle: const Text("Enable notifications"),
+          ),
+          CheckboxListTile(
+            activeColor: Colors.black,
+            value: false,
+            onChanged: (value) {},
+            title: const Text("Enable notifications"),
+          ),
           ListTile(
             title: const Text('What is your birthday?'),
             onTap: () async {
@@ -36,12 +44,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 firstDate: DateTime(1980),
                 lastDate: DateTime(2026),
               );
-              print(date);
               final time = await showTimePicker(
                 context: context,
                 initialTime: TimeOfDay.now(),
               );
-              print(time);
               final booking = await showDateRangePicker(
                 context: context,
                 firstDate: DateTime(1980),
@@ -56,24 +62,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   );
                 },
               );
-              print(booking);
             },
           ),
           const AboutListTile(
             applicationVersion: "1.0",
             applicationLegalese: "Don't copy me.",
-          ),
-          SwitchListTile.adaptive(
-            value: _notifications,
-            onChanged: _onNotificationsChanged,
-            title: const Text("Enable notifications"),
-            subtitle: const Text("Enable notifications"),
-          ),
-          CheckboxListTile(
-            activeColor: Colors.black,
-            value: _notifications,
-            onChanged: _onNotificationsChanged,
-            title: const Text("Enable notifications"),
           ),
           ListTile(
             title: const Text('Log out (iso)'),
@@ -153,7 +146,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 }
-
 
 
 /*

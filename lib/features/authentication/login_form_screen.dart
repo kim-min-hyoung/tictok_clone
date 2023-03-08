@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/features/authentication/widget/form_button.dart';
 
@@ -22,9 +23,7 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
       if (_formkey.currentState!.validate()) {
         _formkey.currentState!.save();
 
-        Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => const InterestsSceen()),
-            (route) => false);
+        context.goNamed(InterestsSceen.routeName);
       }
     }
   }
